@@ -1,8 +1,8 @@
 
 class Application:
-    def __init__(self, commands, io_helper):
+    def __init__(self, commands, communication_with_user):
         self._commands = commands
-        self._io_helper = io_helper
+        self._communication_with_user = communication_with_user
         self._in_process = True
 
     def run(self):
@@ -13,7 +13,7 @@ class Application:
         self._in_process = False
 
     def _process(self):
-        cmd = self._io_helper.request_command()
+        cmd = self._communication_with_user.request_command()
 
         if cmd == "get status":
             self._commands.get_status()
@@ -22,5 +22,5 @@ class Application:
             self._commands.status_up()
 
         if cmd == "стоп":
-            self._io_helper.send_stop_application()
+            self._communication_with_user.send_stop_application()
             self._stop()
