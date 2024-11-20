@@ -27,3 +27,8 @@ class CommunicationWithUser:
 
     def send_patient_discharged(self):
         self._console.print("Пациент выписан из больницы")
+
+    def send_statistic(self, total_count_patients: int, statistic: dict):
+        self._console.print(f"В больнице на данный момент находится {total_count_patients} чел., из них:")
+        for status, count_patients in statistic.items():
+            self._console.print(f"- в статусе '{status}': {count_patients} чел.")

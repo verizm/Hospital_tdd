@@ -1,4 +1,7 @@
-from unittest.mock import MagicMock
+from unittest.mock import (
+    MagicMock,
+    call,
+)
 from communication_with_user import CommunicationWithUser
 
 
@@ -69,3 +72,17 @@ class TestCommunicationWithUser:
         communication_with_user.send_patient_discharged()
 
         console.print.assert_called_with("Пациент выписан из больницы")
+
+    def test_send_statistic(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+
+        communication_with_user.send_statistic(total_count_patients=6, statistic={"Тяжело болен": 3, "Слегка болен": 3})
+
+        console.assert_has_calls(
+            [
+                call.print("В больнице на данный момент находится 6 чел., из них:"),
+                call.print("- в статусе 'Тяжело болен': 3 чел."),
+                call.print("- в статусе 'Слегка болен': 3 чел.")
+            ]
+        )
