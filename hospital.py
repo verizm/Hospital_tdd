@@ -36,9 +36,10 @@ class Hospital:
         return len(self._exclude_discharged_patients())
 
     def calculate_statistic(self):
-        statistic = dict(Counter(self._exclude_discharged_patients()))
+        statistic = Counter(self._exclude_discharged_patients())
 
         statistic_with_statuses_values = {
-            self._statuses_model[status_id]: count_patients for status_id, count_patients in statistic.items()
+
+            self._statuses_model[status_id]: count_patients for status_id, count_patients in sorted(statistic.items())
         }
         return statistic_with_statuses_values

@@ -97,3 +97,26 @@ class TestHospitalApplication:
             ]
         )
 
+    def test_calculate_statistic(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        console.input.side_effect = ["рассчитать статистику", "стоп"]
+
+        hospital = Hospital([1, 3, 1, 2, 2], statuses)
+        commands = Commands(hospital, communication_with_user)
+        Application(commands, communication_with_user).run()
+
+        console.assert_has_calls(
+            [
+                call.input("Введите команду: "),
+                call.print("В больнице на данный момент находится 5 чел., из них:"),
+                call.print("- в статусе 'Болен': 2 чел."),
+                call.print("- в статусе 'Слегка болен': 2 чел."),
+                call.print("- в статусе 'Готов к выписке': 1 чел."),
+                call.input("Введите команду: "),
+                call.print("Сеанс завершён."),
+            ]
+        )
+

@@ -21,6 +21,9 @@ class Application:
         if cmd == "status up":
             self._commands.status_up()
 
+        if cmd == "рассчитать статистику":
+            self._commands.calculate_statistic()
+
         if cmd == "стоп":
             self._communication_with_user.send_stop_application()
             self._stop()
