@@ -11,3 +11,6 @@ class IoHelper:
 
     def request_command(self):
         return self._console.input("Введите команду: ").strip()
+
+    def send_stop_application(self):
+        return self._console.print("Сеанс завершён.")

@@ -21,11 +21,20 @@ class TestIoHelper:
         assert patient_id == 1
 
     def test_request_command(self):
-        console_mock = MagicMock()
-        io_helper = IoHelper(console_mock)
-        console_mock.input.return_value = " get status "
+        mock = MagicMock()
+        io_helper = IoHelper(mock)
+        mock.input.return_value = " get status "
 
         cmd = io_helper.request_command()
 
-        console_mock.input.assert_called_with("Введите команду: ")
+        mock.input.assert_called_with("Введите команду: ")
         assert cmd == "get status"
+
+    def test_send_stop_application(self):
+        mock = MagicMock()
+        io_helper = IoHelper(mock)
+
+        io_helper.send_stop_application()
+
+        mock.print.assert_called_with("Сеанс завершён.")
+
