@@ -21,3 +21,9 @@ class Commands:
             else:
                 status = self._hospital.get_status(patient_id)
                 self._communication_with_user.send_status_not_changed(status)
+
+    def calculate_statistic(self):
+        total_count_patients = self._hospital.calculate_total_count_patients()
+        statistic = self._hospital.calculate_statistic()
+        self._communication_with_user.send_statistic(total_count_patients, statistic)
+

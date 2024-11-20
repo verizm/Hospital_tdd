@@ -58,3 +58,14 @@ class TestCommands:
         communication_with_user.send_status_not_changed.assert_called_with('Готов к выписке')
         assert hospital._hospital_db == [3, 0, 1]
 
+    def test_calculate_statistic(self):
+        communication_with_user = MagicMock()
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([None, 3, 2, 0, 2, 3], statuses)
+        cmd = Commands(hospital, communication_with_user)
+        statistic = {"Тяжело болен": 1, "Слегка болен": 2, "Готов к выписке": 2}
+
+        cmd.calculate_statistic()
+
+        communication_with_user.send_statistic.assert_called_with(5, statistic)
