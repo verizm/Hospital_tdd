@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 from communication_with_user import CommunicationWithUser
 
 
-class TestIoHelper:
+class TestCommunicationWithUser:
 
     def test_send_status(self):
         console = MagicMock()
