@@ -23,3 +23,12 @@ class TestHospital:
         hospital = Hospital([10, None, 30], statuses)
 
         assert hospital._calculate_next_status(patient_index=2) == 40
+
+    def test_discharge(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([1, 0, 3], statuses)
+
+        hospital.discharge(patient_id=1)
+
+        assert hospital._hospital_db == [None, 0, 3]

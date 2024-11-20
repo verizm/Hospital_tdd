@@ -17,3 +17,8 @@ class Hospital:
         patient_index = patient_id - 1
 
         self._hospital_db[patient_index] = self._calculate_next_status(patient_index)
+
+    def discharge(self, patient_id: int):
+        patient_index = patient_id - 1
+        self._hospital_db[patient_index] = None
+
