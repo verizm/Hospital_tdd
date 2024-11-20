@@ -48,3 +48,11 @@ class TestHospital:
         hospital.discharge(patient_id=1)
 
         assert hospital._hospital_db == [None, 0, 3]
+
+    def test_calculate_total_count_patients(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([None, 1, 0,  3, None], statuses)
+        hospital.calculate_total_count_patients()
+
+        assert hospital.calculate_total_count_patients() == 3

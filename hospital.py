@@ -26,3 +26,8 @@ class Hospital:
         patient_index = patient_id - 1
         self._hospital_db[patient_index] = None
 
+    def _exclude_discharged_patients(self) -> list:
+        return list(filter(lambda item: item is not None, self._hospital_db))
+
+    def calculate_total_count_patients(self):
+        return len(self._exclude_discharged_patients())
