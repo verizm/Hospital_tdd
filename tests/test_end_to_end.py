@@ -12,21 +12,42 @@ from commands import Commands
 class TestHospitalApplication:
 
     def test_get_status_command(self):
-        console_mock = MagicMock()
-        communication_with_user = CommunicationWithUser(console_mock)
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
-        console_mock.input.side_effect = ["get status", "1", "стоп"]
+        console.input.side_effect = ["get status", "1", "стоп"]
         hospital = Hospital([0, 3, 2], statuses)
         commands = Commands(hospital, communication_with_user)
 
         Application(commands, communication_with_user).run()
 
-        console_mock.assert_has_calls(
+        console.assert_has_calls(
             [
                 call.input("Введите команду: "),
                 call.input("Введите ID пациента: "),
                 call.print("Cтатус пациента: 'Тяжело болен'"),
+                call.input("Введите команду: "),
+                call.print("Сеанс завершён."),
+            ]
+        )
+
+    def test_status_up(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        console.input.side_effect = ["status up", "1", "стоп"]
+
+        hospital = Hospital([0, 3, 2], statuses)
+        commands = Commands(hospital, communication_with_user)
+        Application(commands, communication_with_user).run()
+
+        console.assert_has_calls(
+            [
+                call.input("Введите команду: "),
+                call.input("Введите ID пациента: "),
+                call.print("Новый статус пациента: Болен"),
                 call.input("Введите команду: "),
                 call.print("Сеанс завершён."),
             ]

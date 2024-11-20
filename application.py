@@ -18,6 +18,9 @@ class Application:
         if cmd == "get status":
             self._commands.get_status()
 
+        if cmd == "status up":
+            self._commands.status_up()
+
         if cmd == "стоп":
             self._io_helper.send_stop_application()
             self._stop()
