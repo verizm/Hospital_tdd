@@ -21,3 +21,6 @@ class CommunicationWithUser:
     def request_need_to_discharge(self) -> bool:
         answer = self._console.input("Желаете этого клиента выписать? (да/нет) ").strip()
         return answer.lower() == "да"
+
+    def send_status_not_changed(self, status):
+        self._console.print(f"Пациент остался в статусе '{status}'")

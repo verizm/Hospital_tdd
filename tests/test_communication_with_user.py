@@ -53,3 +53,11 @@ class TestCommunicationWithUser:
 
         assert communication_with_user.request_need_to_discharge()
 
+    def test_send_status_not_changed(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+
+        communication_with_user.send_status_not_changed("Готов к выписке")
+
+        console.print.assert_called_with("Пациент остался в статусе 'Готов к выписке'")
+
