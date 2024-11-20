@@ -1,8 +1,8 @@
 
 class Application:
-    def __init__(self, commands, communication_with_user):
+    def __init__(self, commands, user_interaction):
         self._commands = commands
-        self._communication_with_user = communication_with_user
+        self._user_interaction = user_interaction
         self._in_process = True
 
     def run(self):
@@ -13,7 +13,7 @@ class Application:
         self._in_process = False
 
     def _process(self):
-        cmd = self._communication_with_user.request_command()
+        cmd = self._user_interaction.request_command()
 
         if cmd == "get status":
             self._commands.get_status()
@@ -25,5 +25,5 @@ class Application:
             self._commands.calculate_statistic()
 
         if cmd == "стоп":
-            self._communication_with_user.send_stop_application()
+            self._user_interaction.send_stop_application()
             self._stop()

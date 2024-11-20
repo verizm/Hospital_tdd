@@ -4,7 +4,7 @@ from unittest.mock import (
 )
 
 from application import Application
-from communication_with_user import CommunicationWithUser
+from user_interaction import UserInteraction
 from hospital import Hospital
 from commands import Commands
 
@@ -13,14 +13,14 @@ class TestHospitalApplication:
 
     def test_get_status_command(self):
         console = MagicMock()
-        communication_with_user = CommunicationWithUser(console)
+        user_interaction = UserInteraction(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console.input.side_effect = ["get status", "1", "стоп"]
         hospital = Hospital([0, 3, 2], statuses)
-        commands = Commands(hospital, communication_with_user)
+        commands = Commands(hospital, user_interaction)
 
-        Application(commands, communication_with_user).run()
+        Application(commands, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -34,14 +34,14 @@ class TestHospitalApplication:
 
     def test_status_up(self):
         console = MagicMock()
-        communication_with_user = CommunicationWithUser(console)
+        user_interaction = UserInteraction(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console.input.side_effect = ["status up", "1", "стоп"]
 
         hospital = Hospital([0, 3, 2], statuses)
-        commands = Commands(hospital, communication_with_user)
-        Application(commands, communication_with_user).run()
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -55,14 +55,14 @@ class TestHospitalApplication:
 
     def test_status_up_when_status_too_high_and_patient_not_discharged(self):
         console = MagicMock()
-        communication_with_user = CommunicationWithUser(console)
+        user_interaction = UserInteraction(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console.input.side_effect = ["status up", "1", "нет", "стоп"]
 
         hospital = Hospital([3, 1, 2], statuses)
-        commands = Commands(hospital, communication_with_user)
-        Application(commands, communication_with_user).run()
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -77,14 +77,14 @@ class TestHospitalApplication:
 
     def test_status_up_when_status_too_high_and_patient_discharged(self):
         console = MagicMock()
-        communication_with_user = CommunicationWithUser(console)
+        user_interaction = UserInteraction(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console.input.side_effect = ["status up", "1", "да", "стоп"]
 
         hospital = Hospital([3, 1, 2], statuses)
-        commands = Commands(hospital, communication_with_user)
-        Application(commands, communication_with_user).run()
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -99,14 +99,14 @@ class TestHospitalApplication:
 
     def test_calculate_statistic(self):
         console = MagicMock()
-        communication_with_user = CommunicationWithUser(console)
+        user_interaction = UserInteraction(console)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console.input.side_effect = ["рассчитать статистику", "стоп"]
 
         hospital = Hospital([1, 3, 1, 2, 2], statuses)
-        commands = Commands(hospital, communication_with_user)
-        Application(commands, communication_with_user).run()
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
 
         console.assert_has_calls(
             [

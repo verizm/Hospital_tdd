@@ -1,4 +1,4 @@
-class CommunicationWithUser:
+class UserInteraction:
     def __init__(self, console):
         self._console = console
 
