@@ -4,7 +4,7 @@ from unittest.mock import (
 )
 
 from application import Application
-from io_helper import IoHelper
+from communication_with_user import CommunicationWithUser
 from hospital import Hospital
 from commands import Commands
 
@@ -13,14 +13,14 @@ class TestHospitalApplication:
 
     def test_get_status_command(self):
         console_mock = MagicMock()
-        io_helper = IoHelper(console_mock)
+        communication_with_user = CommunicationWithUser(console_mock)
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
         console_mock.input.side_effect = ["get status", "1", "стоп"]
         hospital = Hospital([0, 3, 2], statuses)
-        commands = Commands(hospital, io_helper)
+        commands = Commands(hospital, communication_with_user)
 
-        Application(commands, io_helper).run()
+        Application(commands, communication_with_user).run()
 
         console_mock.assert_has_calls(
             [

@@ -1,4 +1,4 @@
-class IoHelper:
+class CommunicationWithUser:
     def __init__(self, console):
         self._console = console
 

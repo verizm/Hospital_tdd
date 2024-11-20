@@ -7,12 +7,12 @@ from hospital import Hospital
 class TestCommands:
 
     def test_get_status(self):
-        mock = MagicMock()
+        communication_with_user = MagicMock()
         statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
         hospital = Hospital([0, 3, None], statuses)
-        cmd = Commands(hospital, mock)
+        cmd = Commands(hospital, communication_with_user)
 
-        mock.request_patient_id = MagicMock(return_value=2)
+        communication_with_user.request_patient_id = MagicMock(return_value=2)
         cmd.get_status()
 
-        mock.send_status.assert_called_with('Готов к выписке')
+        communication_with_user.send_status.assert_called_with('Готов к выписке')
