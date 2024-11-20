@@ -15,4 +15,4 @@ class TestCommands:
         mock.request_patient_id = MagicMock(return_value=2)
         cmd.get_status()
 
-        mock.send_message.assert_called_with('Готов к выписке')
+        mock.send_status.assert_called_with('Готов к выписке')

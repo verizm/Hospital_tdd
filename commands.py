@@ -6,5 +6,5 @@ class Commands:
     def get_status(self):
         patient_id = self._console_helper.request_patient_id()
         status = self._hospital.get_status(patient_id)
-        self._console_helper.send_message(status)
+        self._console_helper.send_status(status)
 
