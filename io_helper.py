@@ -8,3 +8,6 @@ class IoHelper:
     def request_patient_id(self) -> int:
         patient_id = self._console.input("Введите ID пациента: ").strip()
         return int(patient_id)
+
+    def request_command(self):
+        return self._console.input("Введите команду: ").strip()

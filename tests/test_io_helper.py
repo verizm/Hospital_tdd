@@ -19,3 +19,13 @@ class TestIoHelper:
         patient_id = io_helper.request_patient_id()
         mock.input.assert_called_with("Введите ID пациента: ")
         assert patient_id == 1
+
+    def test_request_command(self):
+        console_mock = MagicMock()
+        io_helper = IoHelper(console_mock)
+        console_mock.input.return_value = " get status "
+
+        cmd = io_helper.request_command()
+
+        console_mock.input.assert_called_with("Введите команду: ")
+        assert cmd == "get status"
