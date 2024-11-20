@@ -61,3 +61,11 @@ class TestCommunicationWithUser:
 
         console.print.assert_called_with("Пациент остался в статусе 'Готов к выписке'")
 
+    def test_send_patient_discharged(self):
+
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+
+        communication_with_user.send_patient_discharged()
+
+        console.print.assert_called_with("Пациент выписан из больницы")

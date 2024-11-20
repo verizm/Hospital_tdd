@@ -24,3 +24,6 @@ class CommunicationWithUser:
 
     def send_status_not_changed(self, status):
         self._console.print(f"Пациент остался в статусе '{status}'")
+
+    def send_patient_discharged(self):
+        self._console.print("Пациент выписан из больницы")
