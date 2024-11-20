@@ -38,3 +38,10 @@ class TestCommunicationWithUser:
 
         console.print.assert_called_with("Сеанс завершён.")
 
+    def test_send_new_status(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+
+        communication_with_user.send_new_status('Болен')
+
+        console.print.assert_called_with("Новый статус пациента: Болен")
