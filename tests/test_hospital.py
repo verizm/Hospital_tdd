@@ -63,3 +63,11 @@ class TestHospital:
         hospital = Hospital([None, 1, 0, None,  3, None], statuses)
 
         assert hospital._exclude_discharged_patients() == [1, 0,  3]
+
+    def test_calculate_statistic(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([3, 1, 3, 0, 1, None], statuses)
+        expected_statistic = {"Тяжело болен": 1, "Болен": 2, "Готов к выписке": 2}
+
+        assert hospital.calculate_statistic() == expected_statistic

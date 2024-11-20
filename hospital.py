@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class Hospital:
     def __init__(self, hospital_db: list, statuses_model: dict):
         self._hospital_db = hospital_db
@@ -31,3 +34,12 @@ class Hospital:
 
     def calculate_total_count_patients(self):
         return len(self._exclude_discharged_patients())
+
+    def calculate_statistic(self):
+        current_patients = self._exclude_discharged_patients()
+        statistic = dict(Counter(current_patients))
+
+        statistic_with_statuses_values = {
+            self._statuses_model[status_id]: count_patients for status_id, count_patients in statistic.items()
+        }
+        return statistic_with_statuses_values
