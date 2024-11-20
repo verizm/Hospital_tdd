@@ -38,7 +38,7 @@ class TestCommands:
         cmd = Commands(hospital, communication_with_user)
 
         communication_with_user.request_patient_id = MagicMock(return_value=1)
-        communication_with_user.request_need_to_discharge = MagicMock(return_value="да")
+        communication_with_user.request_need_to_discharge = MagicMock(return_value=True)
         cmd.status_up()
 
         communication_with_user.send_patient_discharged.assert_called()
