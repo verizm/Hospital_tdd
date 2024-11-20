@@ -18,3 +18,6 @@ class Commands:
             if self._communication_with_user.request_need_to_discharge():
                 self._hospital.discharge(patient_id)
                 self._communication_with_user.send_patient_discharged()
+            else:
+                status = self._hospital.get_status(patient_id)
+                self._communication_with_user.send_status_not_changed(status)
