@@ -17,3 +17,7 @@ class CommunicationWithUser:
 
     def send_new_status(self, status: str):
         return self._console.print(f"Новый статус пациента: {status}")
+
+    def request_need_to_discharge(self) -> bool:
+        answer = self._console.input("Желаете этого клиента выписать? (да/нет) ").strip()
+        return answer.lower() == "да"

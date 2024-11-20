@@ -45,3 +45,11 @@ class TestCommunicationWithUser:
         communication_with_user.send_new_status('Болен')
 
         console.print.assert_called_with("Новый статус пациента: Болен")
+
+    def test_request_need_to_discharge(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+        console.input.return_value = " да "
+
+        assert communication_with_user.request_need_to_discharge()
+
