@@ -10,6 +10,10 @@ class Commands:
 
     def status_up(self):
         patient_id = self._communication_with_user.request_patient_id()
-        self._hospital.status_up(patient_id)
-        status = self._hospital.get_status(patient_id)
-        self._communication_with_user.send_new_status(status)
+        if self._communication_with_user.request_need_to_discharge() == "да":
+            self._hospital.discharge(patient_id)
+            self._communication_with_user.send_patient_discharged()
+        else:
+            self._hospital.status_up(patient_id)
+            status = self._hospital.get_status(patient_id)
+            self._communication_with_user.send_new_status(status)
