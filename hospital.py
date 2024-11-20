@@ -18,6 +18,10 @@ class Hospital:
 
         self._hospital_db[patient_index] = self._calculate_next_status(patient_index)
 
+    def can_status_up(self, patient_id: int):
+        patient_index = patient_id - 1
+        return self._hospital_db[patient_index] < max(self._statuses_model)
+
     def discharge(self, patient_id: int):
         patient_index = patient_id - 1
         self._hospital_db[patient_index] = None

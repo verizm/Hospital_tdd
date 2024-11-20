@@ -17,6 +17,20 @@ class TestHospital:
 
         assert hospital._hospital_db == [10, None, 40]
 
+    def test_can_status_up(self):
+        statuses = {1: "Тяжело болен", 2: "Болен", 3: "Слегка болен", 4: "Готов к выписке"}
+
+        hospital = Hospital([1, None, 3], statuses)
+
+        assert hospital.can_status_up(patient_id=3) == True
+
+    def test_can_status_up_when_status_too_high(self):
+        statuses = {10: "Тяжело болен", 20: "Болен", 30: "Слегка болен", 40: "Готов к выписке"}
+
+        hospital = Hospital([10, None, 40], statuses)
+
+        assert hospital.can_status_up(patient_id=3) == False
+
     def test_calculate_next_status(self):
         statuses = {10: "Тяжело болен", 20: "Болен", 30: "Слегка болен", 40: "Готов к выписке"}
 
