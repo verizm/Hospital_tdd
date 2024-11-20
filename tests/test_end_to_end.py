@@ -52,3 +52,26 @@ class TestHospitalApplication:
                 call.print("Сеанс завершён."),
             ]
         )
+
+    def test_status_up_when_status_too_high_and_patient_not_discharged(self):
+        console = MagicMock()
+        communication_with_user = CommunicationWithUser(console)
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        console.input.side_effect = ["status up", "1", "нет", "стоп"]
+
+        hospital = Hospital([3, 1, 2], statuses)
+        commands = Commands(hospital, communication_with_user)
+        Application(commands, communication_with_user).run()
+
+        console.assert_has_calls(
+            [
+                call.input("Введите команду: "),
+                call.input("Введите ID пациента: "),
+                call.input("Желаете этого клиента выписать? (да/нет) "),
+                call.print("Пациент остался в статусе 'Готов к выписке'"),
+                call.input("Введите команду: "),
+                call.print("Сеанс завершён."),
+            ]
+        )
+
