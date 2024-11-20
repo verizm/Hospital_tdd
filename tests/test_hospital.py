@@ -56,3 +56,10 @@ class TestHospital:
         hospital.calculate_total_count_patients()
 
         assert hospital.calculate_total_count_patients() == 3
+
+    def test_exclude_discharged_patient(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([None, 1, 0, None,  3, None], statuses)
+
+        assert hospital._exclude_discharged_patients() == [1, 0,  3]
