@@ -4,7 +4,7 @@ from hospital_exceptions import (
 )
 
 
-class Commands:
+class HospitalUseCases:
     def __init__(self, hospital, user_interaction):
         self._hospital = hospital
         self._user_interaction = user_interaction

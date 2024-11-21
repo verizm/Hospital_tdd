@@ -1,6 +1,6 @@
 from application import Application
 from hospital import Hospital
-from commands import Commands
+from hospital_use_cases import HospitalUseCases
 from user_interaction import UserInteraction
 from console import Console
 
@@ -11,6 +11,6 @@ if __name__ == '__main__':
     user_interaction = UserInteraction(Console())
 
     hospital = Hospital(data_base, statuses_model)
-    commands = Commands(hospital, user_interaction)
+    commands = HospitalUseCases(hospital, user_interaction)
 
     Application(commands, user_interaction).run()

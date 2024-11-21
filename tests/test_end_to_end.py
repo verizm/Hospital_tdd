@@ -6,7 +6,7 @@ from unittest.mock import (
 from application import Application
 from user_interaction import UserInteraction
 from hospital import Hospital
-from commands import Commands
+from hospital_use_cases import HospitalUseCases
 
 
 class TestHospitalApplication:
@@ -18,9 +18,9 @@ class TestHospitalApplication:
 
         console.input.side_effect = ["get status", "1", "стоп"]
         hospital = Hospital([0, 3, 2], statuses)
-        commands = Commands(hospital, user_interaction)
+        use_cases = HospitalUseCases(hospital, user_interaction)
 
-        Application(commands, user_interaction).run()
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -40,8 +40,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["status up", "1", "стоп"]
 
         hospital = Hospital([0, 3, 2], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -61,8 +61,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["status up", "1", "стоп"]
 
         hospital = Hospital([None, 3, 2], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -82,8 +82,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["status up", "1", "нет", "стоп"]
 
         hospital = Hospital([3, 1, 2], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -104,8 +104,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["status up", "1", "да", "стоп"]
 
         hospital = Hospital([3, 1, 2], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -126,8 +126,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["рассчитать статистику", "стоп"]
 
         hospital = Hospital([1, 3, 1, 2, 2], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
@@ -149,8 +149,8 @@ class TestHospitalApplication:
         console.input.side_effect = ["непонятная команда", "стоп"]
 
         hospital = Hospital([], statuses)
-        commands = Commands(hospital, user_interaction)
-        Application(commands, user_interaction).run()
+        use_cases = HospitalUseCases(hospital, user_interaction)
+        Application(use_cases, user_interaction).run()
 
         console.assert_has_calls(
             [
