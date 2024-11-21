@@ -25,7 +25,7 @@ class TestHospital:
 
     def test_can_status_up(self):
 
-        hospital = Hospital([1, None, 3], self.default_statuses_model)
+        hospital = Hospital([1, None, 2], self.default_statuses_model)
 
         assert hospital.can_status_up(patient_id=3)
 
@@ -87,3 +87,9 @@ class TestHospital:
 
         with pytest.raises(PatientIsNotExistsError):
             hospital._convert_patient_id_to_patient_index(patient_id=4)
+
+    def test_check_status_less_when_max_status(self):
+        hospital = Hospital([1, 2, 3], self.default_statuses_model)
+
+        assert hospital._check_status_less_when_max_status(patient_index=1)
+

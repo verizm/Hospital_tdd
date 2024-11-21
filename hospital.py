@@ -14,6 +14,9 @@ class Hospital:
             raise PatientIsNotExistsError
         return patient_index
 
+    def _check_status_less_when_max_status(self, patient_index) -> bool:
+        return self._hospital_db[patient_index] < max(self._statuses_model)
+
     def _calculate_next_status(self, patient_index: int) -> int:
         statuses_ids = list(self._statuses_model)
         current_status_id = self._hospital_db[patient_index]
@@ -31,7 +34,7 @@ class Hospital:
 
     def can_status_up(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)
-        return self._hospital_db[patient_index] < max(self._statuses_model)
+        return self._check_status_less_when_max_status(patient_index)
 
     def discharge(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)
