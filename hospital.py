@@ -20,21 +20,21 @@ class Hospital:
         return statuses_ids[statuses_ids.index(current_status_id) + 1]
 
     def get_status(self, patient_id: int) -> str:
-        patient_index = patient_id - 1
+        patient_index = self._convert_patient_id_to_patient_index(patient_id)
         status_code = self._hospital_db[patient_index]
         return self._statuses_model[status_code]
 
     def status_up(self, patient_id: int):
-        patient_index = patient_id - 1
+        patient_index = self._convert_patient_id_to_patient_index(patient_id)
 
         self._hospital_db[patient_index] = self._calculate_next_status(patient_index)
 
     def can_status_up(self, patient_id: int):
-        patient_index = patient_id - 1
+        patient_index = self._convert_patient_id_to_patient_index(patient_id)
         return self._hospital_db[patient_index] < max(self._statuses_model)
 
     def discharge(self, patient_id: int):
-        patient_index = patient_id - 1
+        patient_index = self._convert_patient_id_to_patient_index(patient_id)
         self._hospital_db[patient_index] = None
 
     def _exclude_discharged_patients(self) -> list:
