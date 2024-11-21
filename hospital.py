@@ -1,10 +1,18 @@
 from collections import Counter
 
+from hospital_exceptions import PatientIsNotExistsError
+
 
 class Hospital:
     def __init__(self, hospital_db: list, statuses_model: dict):
         self._hospital_db = hospital_db
         self._statuses_model = statuses_model
+
+    def _convert_patient_id_to_patient_index(self, patient_id: int) -> int:
+        patient_index = patient_id - 1
+        if len(self._hospital_db) <= int(patient_index) or self._hospital_db[patient_index] is None:
+            raise PatientIsNotExistsError
+        return patient_index
 
     def _calculate_next_status(self, patient_index: int) -> int:
         statuses_ids = list(self._statuses_model)

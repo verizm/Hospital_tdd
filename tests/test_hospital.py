@@ -1,7 +1,7 @@
 import pytest
 
 from hospital import Hospital
-
+from hospital_exceptions import PatientIsNotExistsError
 
 class TestHospital:
 
@@ -71,3 +71,24 @@ class TestHospital:
         expected_statistic = {"Тяжело болен": 1, "Болен": 2, "Готов к выписке": 2}
 
         assert hospital.calculate_statistic() == expected_statistic
+
+    def test_convert_patient_id_to_patient_index(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([1, 0, 3], statuses)
+
+        assert hospital._convert_patient_id_to_patient_index(patient_id=1) == 0
+
+    def test_convert_patient_id_to_patient_index_when_patient_discharged(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([None, 0, 3], statuses)
+        with pytest.raises(PatientIsNotExistsError):
+            hospital._convert_patient_id_to_patient_index(patient_id=1)
+
+    def test_convert_patient_id_to_patient_index_when_patient_not_exists(self):
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        hospital = Hospital([1, 0, 3], statuses)
+        with pytest.raises(PatientIsNotExistsError):
+            hospital._convert_patient_id_to_patient_index(patient_id=4)
