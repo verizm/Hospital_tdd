@@ -1,6 +1,6 @@
 from collections import Counter
 
-from hospital_exceptions import PatientIsNotExistsError
+from hospital_exceptions import PatientIsNotExistsError, PatientStatusTooHighError
 
 
 class Hospital:
@@ -20,6 +20,8 @@ class Hospital:
     def _calculate_next_status(self, patient_index: int) -> int:
         statuses_ids = list(self._statuses_model)
         current_status_id = self._hospital_db[patient_index]
+        if not self._check_status_less_when_max_status(patient_index):
+            raise PatientStatusTooHighError
         return statuses_ids[statuses_ids.index(current_status_id) + 1]
 
     def get_status(self, patient_id: int) -> str:
@@ -29,8 +31,8 @@ class Hospital:
 
     def status_up(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)
-
-        self._hospital_db[patient_index] = self._calculate_next_status(patient_index)
+        increased_status = self._calculate_next_status(patient_index)
+        self._hospital_db[patient_index] = increased_status
 
     def can_status_up(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)

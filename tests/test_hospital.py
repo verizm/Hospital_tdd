@@ -1,7 +1,10 @@
 import pytest
 
 from hospital import Hospital
-from hospital_exceptions import PatientIsNotExistsError
+from hospital_exceptions import (
+    PatientIsNotExistsError,
+    PatientStatusTooHighError,
+)
 
 
 class TestHospital:
@@ -42,6 +45,14 @@ class TestHospital:
         hospital = Hospital([10, None, 30], statuses)
 
         assert hospital._calculate_next_status(patient_index=2) == 40
+
+    def test_calculate_next_status_when_status_too_high(self):
+        statuses = {10: "Тяжело болен", 20: "Болен", 30: "Слегка болен", 40: "Готов к выписке"}
+
+        hospital = Hospital([10, None, 40], statuses)
+
+        with pytest.raises(PatientStatusTooHighError):
+            hospital._calculate_next_status(patient_index=2)
 
     def test_discharge(self):
 
