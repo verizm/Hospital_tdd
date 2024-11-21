@@ -45,6 +45,7 @@ class TestHospitalUseCases:
         use_cases.status_up()
 
         user_interaction.send_message.assert_called_with(PatientIdIsNotPositiveIntegerError().message)
+        assert hospital._hospital_db == [2, 0]
 
     def test_status_up_when_patient_not_exists(self):
         user_interaction = MagicMock()
@@ -57,6 +58,7 @@ class TestHospitalUseCases:
         use_cases.status_up()
 
         user_interaction.send_message.assert_called_with(PatientIsNotExistsError().message)
+        assert hospital._hospital_db == [2, 0]
 
     def test_status_up_when_status_too_high_and_patient_discharged(self):
         user_interaction = MagicMock()

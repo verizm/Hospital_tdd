@@ -52,6 +52,7 @@ class TestHospitalApplication:
                 call.print("Сеанс завершён."),
             ]
         )
+        assert hospital._hospital_db == [1, 3, 2]
 
     def test_status_up_when_patient_is_not_exists(self):
         console = MagicMock()
@@ -95,6 +96,7 @@ class TestHospitalApplication:
                 call.print("Сеанс завершён."),
             ]
         )
+        assert hospital._hospital_db == [3, 1, 2]
 
     def test_status_up_when_status_too_high_and_patient_discharged(self):
         console = MagicMock()
@@ -117,6 +119,7 @@ class TestHospitalApplication:
                 call.print("Сеанс завершён."),
             ]
         )
+        assert hospital._hospital_db == [None, 1, 2]
 
     def test_calculate_statistic(self):
         console = MagicMock()
