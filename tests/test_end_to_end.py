@@ -141,3 +141,22 @@ class TestHospitalApplication:
             ]
         )
 
+    def test_unknown_command(self):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        console.input.side_effect = ["непонятная команда", "стоп"]
+
+        hospital = Hospital([], statuses)
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
+
+        console.assert_has_calls(
+            [
+                call.input("Введите команду: "),
+                call.print("Неизвестная команда! Попробуйте ещё раз"),
+                call.input("Введите команду: "),
+                call.print("Сеанс завершён."),
+            ]
+        )

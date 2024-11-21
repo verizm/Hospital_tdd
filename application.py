@@ -24,6 +24,9 @@ class Application:
         if cmd_type == "statistic":
             self._commands.calculate_statistic()
 
+        if cmd_type == "unknown_command":
+            self._user_interaction.send_unknown_command()
+
         if cmd_type == "stop":
             self._user_interaction.send_stop_application()
             self._stop()
