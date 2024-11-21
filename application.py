@@ -13,17 +13,17 @@ class Application:
         self._in_process = False
 
     def _process(self):
-        cmd = self._user_interaction.request_command()
+        cmd_type = self._user_interaction.request_command()
 
-        if cmd == "get status":
+        if cmd_type == "get_status":
             self._commands.get_status()
 
-        if cmd == "status up":
+        if cmd_type == "status_up":
             self._commands.status_up()
 
-        if cmd == "рассчитать статистику":
+        if cmd_type == "statistic":
             self._commands.calculate_statistic()
 
-        if cmd == "стоп":
+        if cmd_type == "stop":
             self._user_interaction.send_stop_application()
             self._stop()

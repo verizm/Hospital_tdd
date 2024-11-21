@@ -40,11 +40,11 @@ class TestCommands:
 
         hospital = Hospital([2, 0], statuses)
         cmd = Commands(hospital, user_interaction)
-        user_interaction.request_patient_id = MagicMock(side_effect=PatientIdIsNotPositiveIntegerError)
+        user_interaction.request_patient_id = MagicMock(side_effect=PatientIdIsNotPositiveIntegerError())
 
         cmd.status_up()
 
-        user_interaction.report_message.assert_called_with(PatientIdIsNotPositiveIntegerError().message)
+        user_interaction.send_message.assert_called_with(PatientIdIsNotPositiveIntegerError().message)
 
     def test_status_up_when_patient_not_exists(self):
         user_interaction = MagicMock()
