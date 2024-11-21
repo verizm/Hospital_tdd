@@ -53,6 +53,27 @@ class TestHospitalApplication:
             ]
         )
 
+    def test_status_up_when_patient_is_not_exists(self):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+        statuses = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
+
+        console.input.side_effect = ["status up", "1", "стоп"]
+
+        hospital = Hospital([None, 3, 2], statuses)
+        commands = Commands(hospital, user_interaction)
+        Application(commands, user_interaction).run()
+
+        console.assert_has_calls(
+            [
+                call.input("Введите команду: "),
+                call.input("Введите ID пациента: "),
+                call.print("Ошибка. В больнице нет пациента с таким ID"),
+                call.input("Введите команду: "),
+                call.print("Сеанс завершён."),
+            ]
+        )
+
     def test_status_up_when_status_too_high_and_patient_not_discharged(self):
         console = MagicMock()
         user_interaction = UserInteraction(console)

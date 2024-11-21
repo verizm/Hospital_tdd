@@ -56,7 +56,7 @@ class TestCommands:
 
         cmd.status_up()
 
-        user_interaction.report_message.assert_called_with(PatientIsNotExistsError().message)
+        user_interaction.send_message.assert_called_with(PatientIsNotExistsError().message)
 
     def test_status_up_when_status_too_high_and_patient_discharged(self):
         user_interaction = MagicMock()

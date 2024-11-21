@@ -29,7 +29,7 @@ class Commands:
                     status = self._hospital.get_status(patient_id)
                     self._user_interaction.send_status_not_changed(status)
         except (PatientIsNotExistsError, PatientIdIsNotPositiveIntegerError) as error:
-            self._user_interaction.report_message(error.message)
+            self._user_interaction.send_message(error.message)
 
     def calculate_statistic(self):
         total_count_patients = self._hospital.calculate_total_count_patients()
