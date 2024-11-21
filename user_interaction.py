@@ -4,6 +4,12 @@ from hospital_exceptions import PatientIdIsNotPositiveIntegerError
 class UserInteraction:
     def __init__(self, console):
         self._console = console
+        self._commands_storage = {
+            "get_status": ["get status", "узнать статус"],
+            "status_up": ["status up", "повысить статус"],
+            "statistic": ["calculate statistic", "рассчитать статистику"],
+            "stop": ["stop", "стоп"],
+        }
 
     def request_patient_id(self) -> int:
         patient_id = self._console.input(f"Введите ID пациента: ").strip()
@@ -13,7 +19,16 @@ class UserInteraction:
         return int(patient_id)
 
     def request_command(self):
-        return self._console.input("Введите команду: ").strip()
+        command = self._console.input("Введите команду: ").strip()
+        return self._convert_command_to_command_type(command)
+
+    def _convert_command_to_command_type(self, command: str) -> str:
+        command = command.lower()
+
+        for command_type, commands in self._commands_storage.items():
+            if command in commands:
+                return command_type
+        return "unknown_command"
 
     def send_status(self, status: str):
         self._console.print(f"Cтатус пациента: '{status}'")
@@ -41,3 +56,5 @@ class UserInteraction:
 
     def send_message(self, message: str):
         self._console.print(message)
+
+

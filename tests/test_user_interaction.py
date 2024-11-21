@@ -36,16 +36,6 @@ class TestUserInteraction:
         with pytest.raises(PatientIdIsNotPositiveIntegerError):
             user_interaction.request_patient_id()
 
-    def test_request_command(self):
-        console = MagicMock()
-        user_interaction = UserInteraction(console)
-        console.input.return_value = " get status "
-
-        cmd = user_interaction.request_command()
-
-        console.input.assert_called_with("Введите команду: ")
-        assert cmd == "get status"
-
     def test_send_stop_application(self):
         console = MagicMock()
         user_interaction = UserInteraction(console)
@@ -111,22 +101,23 @@ class TestUserInteraction:
         console = MagicMock()
         user_interaction = UserInteraction(console)
         console.input.return_value = "get status"
+        cmd_type = user_interaction.request_command()
 
-        assert user_interaction.request_command() == "get_status"
-        console.input.assert_has_calls("Введите команду: ")
+        console.input.assert_called_with("Введите команду: ")
+        assert cmd_type == "get_status"
 
     @pytest.mark.parametrize(
         "command, command_type",
-            [
-                ("get status", "get_status"),
-                ("узнать статус пациeнта", "get_status"),
-                ("стоп", "stop"),
-                ("STOP", "stop"),
-                ("status up", "status_up"),
-                ("рассчитать статистику", "calculate_statistic"),
-
-            ]
-        )
+        [
+            ("get status", "get_status"),
+            ("узнать статус", "get_status"),
+            ("стоп", "stop"),
+            ("STOP", "stop"),
+            ("status up", "status_up"),
+            ("рассчитать статистику", "statistic"),
+            ("выписать всех", "unknown_command")
+        ]
+    )
     def test_convert_command_to_command_type(self, command, command_type):
         console = MagicMock()
         user_interaction = UserInteraction(console)
