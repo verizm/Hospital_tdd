@@ -8,7 +8,7 @@ from hospital_exceptions import (
 )
 
 
-class TestCommands:
+class TestHospitalUseCases:
 
     def test_get_status(self):
         user_interaction = MagicMock()
