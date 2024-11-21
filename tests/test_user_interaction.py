@@ -2,6 +2,10 @@ from unittest.mock import (
     MagicMock,
     call,
 )
+
+import pytest
+
+from hospital_exceptions import PatientIdIsNotPositiveIntegerError
 from user_interaction import UserInteraction
 
 
@@ -22,6 +26,15 @@ class TestUserInteraction:
         patient_id = user_interaction.request_patient_id()
         console.input.assert_called_with("Введите ID пациента: ")
         assert patient_id == 1
+
+    @pytest.mark.parametrize("input_value", ["0.1", "-1", "0", "один"])
+    def test_request_patient_id_when_id_is_not_positive_integer(self, input_value):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+        console.input.return_value = input_value
+
+        with pytest.raises(PatientIdIsNotPositiveIntegerError):
+            user_interaction.request_patient_id()
 
     def test_request_command(self):
         console = MagicMock()
@@ -65,7 +78,6 @@ class TestUserInteraction:
         console.print.assert_called_with("Пациент остался в статусе 'Готов к выписке'")
 
     def test_send_patient_discharged(self):
-
         console = MagicMock()
         user_interaction = UserInteraction(console)
 

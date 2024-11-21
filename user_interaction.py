@@ -1,9 +1,15 @@
+from hospital_exceptions import PatientIdIsNotPositiveIntegerError
+
+
 class UserInteraction:
     def __init__(self, console):
         self._console = console
 
     def request_patient_id(self) -> int:
-        patient_id = self._console.input("Введите ID пациента: ").strip()
+        patient_id = self._console.input(f"Введите ID пациента: ").strip()
+
+        if not patient_id.isdigit() or int(patient_id) <= 0:
+            raise PatientIdIsNotPositiveIntegerError
         return int(patient_id)
 
     def request_command(self):
