@@ -98,3 +98,11 @@ class TestUserInteraction:
                 call.print("- в статусе 'Слегка болен': 3 чел.")
             ]
         )
+
+    def test_send_message(self):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+
+        user_interaction.send_message("Random message")
+
+        console.print.assert_called_with("Random message")

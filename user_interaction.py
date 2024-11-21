@@ -38,3 +38,6 @@ class UserInteraction:
         self._console.print(f"В больнице на данный момент находится {total_count_patients} чел., из них:")
         for status, count_patients in statistic.items():
             self._console.print(f"- в статусе '{status}': {count_patients} чел.")
+
+    def send_message(self, message: str):
+        self._console.print(message)
