@@ -106,3 +106,29 @@ class TestUserInteraction:
         user_interaction.send_message("Random message")
 
         console.print.assert_called_with("Random message")
+
+    def test_request_command(self):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+        console.input.return_value = "get status"
+
+        assert user_interaction.request_command() == "get_status"
+        console.input.assert_has_calls("Введите команду: ")
+
+    @pytest.mark.parametrize(
+        "command, command_type",
+            [
+                ("get status", "get_status"),
+                ("узнать статус пациeнта", "get_status"),
+                ("стоп", "stop"),
+                ("STOP", "stop"),
+                ("status up", "status_up"),
+                ("рассчитать статистику", "calculate_statistic"),
+
+            ]
+        )
+    def test_convert_command_to_command_type(self, command, command_type):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+
+        assert user_interaction._convert_command_to_command_type(command) == command_type
