@@ -4,7 +4,7 @@ from hospital_exceptions import PatientIdIsNotPositiveIntegerError
 class UserInteraction:
     def __init__(self, console):
         self._console = console
-        self._commands_storage = {
+        self._commands_with_types = {
             "get_status": ["get status", "узнать статус"],
             "status_up": ["status up", "повысить статус"],
             "statistic": ["calculate statistic", "рассчитать статистику"],
@@ -25,7 +25,7 @@ class UserInteraction:
     def _convert_command_to_command_type(self, command: str) -> str:
         command = command.lower()
 
-        for command_type, commands in self._commands_storage.items():
+        for command_type, commands in self._commands_with_types.items():
             if command in commands:
                 return command_type
         return "unknown_command"
