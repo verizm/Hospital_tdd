@@ -5,7 +5,7 @@ from unittest.mock import (
 from user_interaction import UserInteraction
 
 
-class TestCommunicationWithUser:
+class TestUserInteraction:
 
     def test_send_status(self):
         console = MagicMock()
