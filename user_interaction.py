@@ -57,4 +57,5 @@ class UserInteraction:
     def send_message(self, message: str):
         self._console.print(message)
 
-
+    def send_unknown_command(self):
+        self._console.print("Неизвестная команда! Попробуйте ещё раз")

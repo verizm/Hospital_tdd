@@ -123,3 +123,10 @@ class TestUserInteraction:
         user_interaction = UserInteraction(console)
 
         assert user_interaction._convert_command_to_command_type(command) == command_type
+
+    def test_send_unknown_command(self):
+        console = MagicMock()
+        user_interaction = UserInteraction(console)
+        user_interaction.send_unknown_command()
+
+        console.print.assert_called_with("Неизвестная команда! Попробуйте ещё раз")
