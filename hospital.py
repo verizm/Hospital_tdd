@@ -31,8 +31,7 @@ class Hospital:
 
     def status_up(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)
-        increased_status = self._calculate_next_status(patient_index)
-        self._hospital_db[patient_index] = increased_status
+        self._hospital_db[patient_index] = self._calculate_next_status(patient_index)
 
     def can_status_up(self, patient_id: int):
         patient_index = self._convert_patient_id_to_patient_index(patient_id)
